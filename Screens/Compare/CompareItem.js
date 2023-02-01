@@ -1,48 +1,35 @@
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { Text, Left, Right, ListItem, Thumbnail, Body } from "native-base";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Text, Image, Card, CardItem, Thumbnail, Left, Body, Right } from "native-base";
 
-// Componente ItemCompare
 const CompareItem = (props) => {
-    
     const data = props.item.item;
-    // retorna UI renderizada
+
     return (
-        <ListItem
-            style={styles.listItem}
-            key={Math.random()}
-            avatar
-        >
-            <Left>
-                <Thumbnail
-                    source={{uri: data.image }} 
-                    />
-            </Left>
-            <Body style={styles.body}>
+        <Card style={styles.card}>
+            <CardItem style={styles.cardItem}>
                 <Left>
-                    <Text>{data.name}</Text>
-                    <Text>{data.brand}</Text>
-                    <Text>{data.description}</Text>
-                </Left> 
+                    <Thumbnail source={{ uri: data.image }} />
+                    <Body>
+                        <Text>{data.name}</Text>
+                        <Text>{data.brand}</Text>
+                        <Text note>{data.description}</Text>
+                    </Body>
+                </Left>
                 <Right>
                     <Text>R$ {data.price}</Text>
                 </Right>
-            </Body>
-        </ListItem>
-
+            </CardItem>
+        </Card>
     );
 };
 
 const styles = StyleSheet.create({
-    listItem: {
-        alignItems: "center",
-        backgroundColor: "white",
-        justifyContent: "center",
+    card: {
+        margin: 10
     },
-    body: {
-        margin: 10,
-        alignItems: "center",
-        flexDirection: "row",
+    cardItem: {
+        flexDirection: "row"
     }
 });
 
