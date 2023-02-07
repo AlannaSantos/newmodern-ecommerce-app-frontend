@@ -1,9 +1,11 @@
-import React from "react";
+//import React from "react";
 import { StyleSheet, View, Dimensions, Image, Text, Button } from 'react-native' // importar 'features' do ReactNative
 import { connect } from "react-redux"; // importar todas as ações criadas na pasta redux
 import * as actions from '../../Redux/Actions/CartActions';// importar a conexão com redux
 import Toast from "react-native-toast-message"; // importar toast msg.
 import StyledButton from "../../Shared/Style/StyledButton"; // importar Botão Estilizado usando Styled Components
+import React, { useState } from 'react';
+
 
 
 
@@ -11,6 +13,8 @@ import StyledButton from "../../Shared/Style/StyledButton"; // importar Botão E
 var { width } = Dimensions.get("screen");
 
 const ProductCard = (props) => {
+    // Flag to keep track of maximum number of items reached
+    const [maxItemsReached, setMaxItemsReached] = useState(false);
     // Passar todas as 'props' em variáveis
     const { name, price, image, qty } = props;
 
@@ -56,7 +60,7 @@ const ProductCard = (props) => {
                         secondary
                         medium
                         onPress={() => {
-                            if (props.addItemToCompare.length < 2) {
+                            if (!maxItemsReached && props.addItemToCompare.length < 2) {
                                 props.addItemToCompare(props.id);
                                 Toast.show({
                                     topOffset: 60,
@@ -64,13 +68,14 @@ const ProductCard = (props) => {
                                     text1: `${name} foi adicionado à tela de comparação`,
                                     text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
                                 });
-                            } else {
+                            } else if (props.addItemToCompare.length === 2) {
                                 Toast.show({
                                     topOffset: 60,
                                     type: "error",
-                                    text1: `Você já adicionou 3 produtos para comparar`,
+                                    text1: `Você já adicionou 2 produtos para comparar`,
                                     text2: "Só é possível comparar até 2 produtos"
                                 });
+                                setMaxItemsReached(true);
                             }
                         }}
                     >
