@@ -55,9 +55,8 @@ const ProductCard = (props) => {
                     <StyledButton
                         secondary
                         medium
-                        //chamar o método mapDispatchToProps no onPressEvent - Redux
                         onPress={() => {
-                            if (props.addItemToCompare.length <= 2) {
+                            if (props.addItemToCompare.length < 2) {
                                 props.addItemToCompare(props.id);
                                 Toast.show({
                                     topOffset: 60,
@@ -65,21 +64,19 @@ const ProductCard = (props) => {
                                     text1: `${name} foi adicionado à tela de comparação`,
                                     text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
                                 });
-                            } else if (props.addItemToCompare.length > 2){
+                            } else {
                                 Toast.show({
                                     topOffset: 60,
                                     type: "error",
                                     text1: `Você já adicionou 3 produtos para comparar`,
-                                    text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
+                                    text2: "Só é possível comparar até 2 produtos"
                                 });
                             }
                         }}
                     >
-
-                        {/*  Texto p/ button*/}
                         <Text style={{ color: "white" }}>Comparar</Text>
-
                     </StyledButton>
+
                 </View>
 
             ) : <Text style={{ marginTop: 20 }}>Indisponível em estoque</Text>
