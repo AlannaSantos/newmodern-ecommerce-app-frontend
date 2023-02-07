@@ -74,7 +74,7 @@ const Checkout = (props) => {
             orderItems,
             user,
             status: "3",
-            dateOrdered: Date.now
+            date_ordered: Date.now()
         }
         // parâmetro rota
         props.navigation.navigate("Pagamento", { order: order })

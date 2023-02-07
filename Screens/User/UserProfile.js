@@ -35,7 +35,7 @@ const Profile = (props) => {
         AsyncStorage.getItem("jwt")
             .then((res) => {
                 axios
-                    .get(`${baseURL}users/${context.stateUser.user.userId}`, {
+                    .get(`${baseURL}users/${context.stateUser.user.userid}`, {
                         headers: { Authorization: `Bearer ${res}` },
                     })
                     .then((user) => setUserProfile(user.data))
@@ -49,7 +49,7 @@ const Profile = (props) => {
             const data = x.data;
             // Filtrar os pedidos para pegar somente os pedidos do usuário autenticado
             const UserOrders = data.filter(
-                (order) => order.user._id === context.stateUser.user.userId
+                (order) => order.user._id === context.stateUser.user.userId  // id do usuário autenticado
             );
             setOrders(UserOrders) 
         })

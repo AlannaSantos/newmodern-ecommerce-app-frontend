@@ -71,7 +71,7 @@ const Cart = (props) => {
     var total = 0;
 
     //método props.cartItem.forEach atribui todos os valores produtos de cada elemento e faz um
-    //'loop' em cada ItemCarrinho. Após isso atribuí-se os valores à variável 'total'
+    //'loop' em cada ItemCarrinho. Após isso atribui-se os valores à variável 'total'
 
     // Calcular valor total do carrinho
     props.cartItem.forEach(cart => {
@@ -82,7 +82,7 @@ const Cart = (props) => {
         <>
             {productUpdate ? (
                 <Container>
-                    <H1 style={{ alignSelf: "center" }}>Cart</H1>
+                    <H1 style={{ alignSelf: "center" }}>Carrrinho</H1>
                     <SwipeListView
                         data={productUpdate}
                         renderItem={(data) => (
@@ -108,7 +108,7 @@ const Cart = (props) => {
                     />
                     <View style={styles.bottomContainer}>
                         <Left>
-                            <Text style={styles.price}>$ {totalPrice}</Text>
+                            <Text style={styles.price}>R$ {totalPrice}</Text>
                         </Left>
                         <Right>
                             <StyledButton

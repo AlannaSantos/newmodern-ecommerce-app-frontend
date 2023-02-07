@@ -43,12 +43,12 @@ const Login = (props) => {
         } else {
             loginUser(user, context.dispatch);
         }
-        // Toast.show({
-        //     topOffset: 60,
-        //     type: "success",
-        //     text1: "Bem-vindo",
-        //     text2: "Esse é o seu perfil"
-        // })
+         Toast.show({
+             topOffset: 60,
+             type: "success",
+             text1: "Bem-vindo",
+             text2: "Esse é o seu perfil"
+         })
     }
 
     // Retornar Container Formulário 

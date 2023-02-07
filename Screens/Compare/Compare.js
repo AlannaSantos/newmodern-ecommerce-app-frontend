@@ -154,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = StyleSheet.create({
     emptyCompareContainer: {
-        height: height, // pega a altura inteira da tela.
+        height: height,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -169,21 +169,22 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 20,
         margin: 20,
-        color: "darkred"
+        color: "darkred",
     },
     hiddenContainer: {
         flex: 1,
-        justifyContent: 'flex-end',
-        flexDirection: 'row'
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
     },
     hiddenButton: {
-        backgroundColor: 'red',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        paddingRight: 25,
+        backgroundColor: "red",
+        justifyContent: "center",
+        alignItems: "center",
         height: 70,
-        width: width / 1.2
-    }
+        width: width / 2,
+        position: "absolute",
+        bottom: 0,
+    },
 });
 
 // Connect funtcion importado : Carinho ao mapStateToProps para poder despachar o item ao State

@@ -55,7 +55,7 @@ const Register = (props) => {
                     topOffset: 60,
                     type: "success",
                     text1: "Registro bem-sucedido",
-                    text2: "Por favor, faça login para acessar seu perfil"
+                    text2: "Por favor, faça login para acessar sua conta"
                 })
                 setTimeout(() => {
                     props.navigation.navigate("Login");

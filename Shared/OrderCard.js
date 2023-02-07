@@ -1,17 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
-import axios from "axios";
-import { useState, useEffect } from "react";
+
 
 const OrderCard = (props) => {
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await axios.get(`/api/products/${props.orderItems.product}`);
-      setProduct(result.data);
-    }
-    fetchData();
-  }, []);
 
   const order = {
     id: props.id,
@@ -32,15 +22,7 @@ const OrderCard = (props) => {
       <View style={styles.container}>
         <Text>Numero do Pedido #{props.id}</Text>
       </View>
-
       <View style={{ marginTop: 10 }}>
-        {props.orderItems.map((item, index) => (
-          <View key={index} style={{ marginTop: 10 }}>
-            <Text>Nome do produto: {product.name}</Text>
-            <Text>Quantidade: {item.quantity}</Text>
-            <Text>Preço: R$ {product.price}</Text>
-          </View>
-        ))}
         <Text>
           Endereço {props.street} {props.number}
         </Text>
@@ -51,6 +33,7 @@ const OrderCard = (props) => {
           <Text>Valor: </Text>
           <Text style={styles.price}>R$ {props.total_price}</Text>
         </View>
+
       </View>
     </View>
   );

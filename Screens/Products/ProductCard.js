@@ -45,36 +45,46 @@ const ProductCard = (props) => {
                                     type: "success",
                                     text1: `${name} foi adicionado ao seu carrinho`,
                                     text2: "Navegue para seu carrinho para completar o pedido"
-                                })
+                                });
                         }}
                     >
                         {/*  Texto p/ button*/}
                         <Text style={{ color: "white" }}>Adicionar</Text>
                     </StyledButton>
 
-                    {/* Botão Comparar |  TODO */}
                     <StyledButton
                         secondary
                         medium
                         //chamar o método mapDispatchToProps no onPressEvent - Redux
                         onPress={() => {
-                            props.addItemToCompare(props.id),
+                            if (props.addItemToCompare.length <= 2) {
+                                props.addItemToCompare(props.id);
                                 Toast.show({
                                     topOffset: 60,
                                     type: "success",
                                     text1: `${name} foi adicionado à tela de comparação`,
                                     text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
-                                })
+                                });
+                            } else if (props.addItemToCompare.length > 2){
+                                Toast.show({
+                                    topOffset: 60,
+                                    type: "error",
+                                    text1: `Você já adicionou 3 produtos para comparar`,
+                                    text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
+                                });
+                            }
                         }}
                     >
+
                         {/*  Texto p/ button*/}
                         <Text style={{ color: "white" }}>Comparar</Text>
 
                     </StyledButton>
                 </View>
 
-            ) : <Text style={{ marginTop: 20 }}>Indisponível em estoque</Text>}
-        </View>
+            ) : <Text style={{ marginTop: 20 }}>Indisponível em estoque</Text>
+            }
+        </View >
     )
 }
 
