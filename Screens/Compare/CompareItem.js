@@ -26,10 +26,13 @@ const CompareItem = (props) => {
 
 const styles = StyleSheet.create({
     card: {
-        margin: 10
+        margin: 10,
+            
     },
     cardItem: {
-        flexDirection: "row"
+        flexDirection: "column-reverse",
+        justifyContent: "space-between",
+
     }
 });
 

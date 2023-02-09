@@ -103,9 +103,9 @@ const Compare = (props) => {
                         rightOpenValue={-75}
                     />
                     <View style={styles.bottomContainer}>
-                        <Left>
-                            <Text style={styles.price}>$ {totalPrice}</Text>
-                        </Left>
+                        {/*<Left>*/}
+                            {/*<Text style={styles.price}>$ {totalPrice}</Text>
+                        </Left>*/}
                         <Right>
                             <StyledButton
                                 danger
