@@ -23,17 +23,29 @@ const OrderCard = (props) => {
         <Text>Numero do Pedido #{props.id}</Text>
       </View>
       <View style={{ marginTop: 10 }}>
+        <Text>Itens:</Text>
+        {order.orderItems.map((item) => {
+          return (
+            <View key={item.id} style={styles.itemContainer}>
+              <Text>{item.image}</Text>
+              <Text>Nome do Produto: {item.name}</Text>
+              <Text>Descrição: {item.description}</Text>
+              <Text>Preço unitário: R$ {item.price}</Text>
+            </View>
+          );
+        })}
+        {/* break line */}
+        <View style={{ borderBottomColor: "black", borderBottomWidth: 1 }} />
         <Text>
-          Endereço {props.street} {props.number}
+          Endereço: {props.street} {props.number}
         </Text>
         <Text>Cidade: {props.city}</Text>
         <Text>País: {props.country}</Text>
-        <Text>Data do pedido {props.date_ordered.split("T")[0]}</Text>
+        <Text>Data do pedido: {props.date_ordered.split("T")[0]}</Text>
         <View style={styles.priceContainer}>
-          <Text>Valor: </Text>
+          <Text>Valor Total: </Text>
           <Text style={styles.price}>R$ {props.total_price}</Text>
         </View>
-
       </View>
     </View>
   );
@@ -45,9 +57,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
   },
-  title: {
-    backgroundColor: "#62B1F6",
-    padding: 5,
+  itemContainer: {
+    marginTop: 10,
   },
   priceContainer: {
     marginTop: 10,
