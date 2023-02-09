@@ -1,14 +1,11 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
-import { TextInput, View, StyleSheet, Button, Text } from "react-native";
+import { TextInput, View, StyleSheet, Button, Text, ToastAndroid } from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// Conexão BD-API
 import axios from "axios";
 import baseURL from "../../assets/common/baseURL"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Importar métodos do ContextAPI
-import AuthGlobal from "../../Context/store/AuthGlobal";
+import AuthGlobal from "../../Context/store/AuthGlobal"
 
 
 
@@ -34,24 +31,37 @@ const EditProfile = (props) => {
 
 	const updateUser = async () => {
 		const user = {
-			userName,
-			userEmail,
-			userPhone
-		}
+			name: userName,
+			email: userEmail,
+			phone: userPhone
+		};
+
 		const jwt = await AsyncStorage.getItem('jwt');
-		fetch(`${baseURL}users/${context.stateUser.user.userId}`, {
-			method: "PUT",
-			body: JSON.stringify(user),
-			headers: {
-				Authorization: `Bearer ${jwt}`,
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => console.log(data));
-		console.log('passou aqui')
-	}
+		const headers = new Headers({
+			'Authorization': `Bearer ${jwt}`,
+			'Content-Type': 'application/json'
+		});
+
+		const options = {
+			method: 'PUT',
+			headers,
+			body: JSON.stringify(user)
+		};
+
+		const response = await fetch(`${baseURL}users/${context.stateUser.user.userId}`, options);
+		const data = await response.json();
+		if (data) {
+			ToastAndroid.showWithGravityAndOffset(
+				'Dados atualizados com sucesso!',
+				ToastAndroid.SHORT,
+				ToastAndroid.BOTTOM,
+				25,
+				50,
+			);
+			props.navigation.navigate("Usuario", { screen: "Profile" });
+		}
+	};
+
 
 
 	const onChangeName = (value) => {
@@ -109,6 +119,7 @@ const EditProfile = (props) => {
 			</View>
 
 			<Button onPress={() => updateUser()} title='Editar seus dados' />
+
 
 		</View>
 	)
