@@ -25,12 +25,21 @@ function UserStack() {
                 }}
             />
             <Stack.Screen
-                name="Perfil"
-                component={UserProfile}
+                name="EditProfile"
+                component={EditProfile}
                 options={{
-                    headerShown: false
+                    headerTitle:'Edit Profile',
+                    headerBackTitleVisible:false,
+                    headerTitleAlign:'center',
+                    headerStyle: {
+                        backgroundColor:'#fff',
+                        shadowColor:'#fff',
+                        elevation:0,
+                    },
+                
                 }}
             />
+
         </Stack.Navigator>
     )
 }
