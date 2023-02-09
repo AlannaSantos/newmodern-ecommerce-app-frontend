@@ -32,18 +32,18 @@ const EditProfile = (props) => {
 
 
 
-	// Get method para pegar o perfil usuário
-	const updateUser = () => {
+	const updateUser = async () => {
 		const user = {
 			userName,
 			userEmail,
 			userPhone
 		}
+		const jwt = await AsyncStorage.getItem('jwt');
 		fetch(`${baseURL}users/${context.stateUser.user.userId}`, {
 			method: "PUT",
 			body: JSON.stringify(user),
 			headers: {
-				Authorization: `Bearer ${AsyncStorage.getItem('jwt')}`,
+				Authorization: `Bearer ${jwt}`,
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
@@ -108,7 +108,7 @@ const EditProfile = (props) => {
 				/>
 			</View>
 
-			<Button onPress={() => updateUser()} title='Update Post' />
+			<Button onPress={() => updateUser()} title='Editar seus dados' />
 
 		</View>
 	)

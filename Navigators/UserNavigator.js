@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Screens/User/Login";
 import Register from "../Screens/User/Register";
 import UserProfile from "../Screens/User/UserProfile";
+import EditProfile from "../Screens/User/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -25,18 +26,25 @@ function UserStack() {
                 }}
             />
             <Stack.Screen
+                name="Perfil"
+                component={UserProfile}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
                 name="EditProfile"
                 component={EditProfile}
                 options={{
-                    headerTitle:'Edit Profile',
-                    headerBackTitleVisible:false,
-                    headerTitleAlign:'center',
+                    headerTitle: 'Edit Profile',
+                    headerBackTitleVisible: false,
+                    headerTitleAlign: 'center',
                     headerStyle: {
-                        backgroundColor:'#fff',
-                        shadowColor:'#fff',
-                        elevation:0,
+                        backgroundColor: '#fff',
+                        shadowColor: '#fff',
+                        elevation: 0,
                     },
-                
+
                 }}
             />
 
