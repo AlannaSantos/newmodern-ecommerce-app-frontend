@@ -9,19 +9,23 @@ import AuthGlobal from "../../Context/store/AuthGlobal"
 
 
 
+
+
 const EditProfile = (props) => {
 	const context = useContext(AuthGlobal);
 	const [userName, setUserName] = useState('');
 	const [userEmail, setUserEmail] = useState('');
 	const [userPhone, setUserPhone] = useState('');
+	const [newPassword, setNewPassword] = useState('');
 
 
 	useEffect(() => {// os dados dos usuario e popula os campos
 		const dates = async () => {
 			axios.get(`${baseURL}users/${context.stateUser.user.userId}`).then((res) => {
 				setUserName(res.data.name),
-					setUserEmail(res.data.email),
-					setUserPhone(res.data.phone)
+				setUserEmail(res.data.email),
+				setUserPhone(res.data.phone)
+				setNewPassword(res.data.password)
 			});
 		}
 		dates();
@@ -33,7 +37,8 @@ const EditProfile = (props) => {
 		const user = {
 			name: userName,
 			email: userEmail,
-			phone: userPhone
+			phone: userPhone,
+			password: newPassword
 		};
 
 		const jwt = await AsyncStorage.getItem('jwt');
@@ -76,6 +81,10 @@ const EditProfile = (props) => {
 		setUserPhone(value)
 	}
 
+	//const onChangePassword = (value) => {
+	//	setNewPassword(value)
+	//}
+
 
 	return (
 		<View style={styles.container}>
@@ -83,6 +92,7 @@ const EditProfile = (props) => {
 			<Text>{userName}</Text>
 			<Text>{userEmail}</Text>
 			<Text>{userPhone}</Text>
+			<Text>{newPassword}</Text>
 
 			<View style={styles.action}>
 				<FontAwesome name="user-o" color="#333333" size={20} />
@@ -115,6 +125,19 @@ const EditProfile = (props) => {
 					value={userPhone}
 					onChangeText={onChangePhone}
 					style={styles.textInput}
+				/>
+			</View>
+
+			<View style={styles.action}>
+				<Feather name="lock" color="#333333" size={20} />
+				<TextInput
+					placeholder="Nova senha"
+					placeholderTextColor="#666666"
+					autoCorrect={false}
+					value={newPassword}
+					onChangeText={setNewPassword}
+					style={styles.textInput}
+					secureTextEntry={true}
 				/>
 			</View>
 
