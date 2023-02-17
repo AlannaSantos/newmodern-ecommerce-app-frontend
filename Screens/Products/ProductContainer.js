@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, ActivityIndicator, FlatList, ScrollView, Dimensions, StatusBar } from "react-native";
-import { NativeBaseProvider, Container, Box, Header, Icon, Item, Input, Text } from "native-base";
+import { NativeBaseProvider, Container, Box, Header, Icon, Item, Input, Text, Right } from "native-base";
 import { useFocusEffect } from "@react-navigation/native";
 
 /**
@@ -21,11 +21,14 @@ import Banner from "../../Shared/Banner";
 import FilteredCategories from "./FilteredCategories";
 
 
+
+
 var { height } = Dimensions.get('screen')
 
 //Importar mock-data para fazer os testes da FlatList - TRABALHAR COM DADOS ESTÁTICOS
 // const data = require('../../assets/mock-data/products.json');
 // const productCategories = require('../../assets/mock-data/categories.json');
+
 
 
 // Primeiro componente do nosso aplicativo
@@ -43,6 +46,8 @@ const ProductContainer = (props) => {
     const [focus, setFocus] = useState();
     // useState categorias | IMPORTANTE!
     const [categories, setCategories] = useState([]);
+
+
     // Produto Categorizados
     const [categorizedProducts, setCategorizedProducts] = useState([]);
     // useState para função de atividade. Quando clicar em cima de uma 'pill', deixar como ativo (iluminado)
@@ -52,6 +57,7 @@ const ProductContainer = (props) => {
     // Mostrar icóne de carregamento no momento de 'buscar' dados da API. 
     const [loading, setLoading] = useState(true);
 
+	
     // // TRABALHAR SOMENTE COM DADOS ESTATICOS PELO JSON...
     // useEffect(() => {
     //     setProducts(data);
@@ -104,6 +110,7 @@ const ProductContainer = (props) => {
                         console.log(error)
                     })
 
+
                 // setar tudo como vazio | isso evita vazamento de memória
                 return () => {
                     setProducts([])
@@ -121,6 +128,7 @@ const ProductContainer = (props) => {
 
     // Método para setar foco em produto
     const searchProduct = (text) => {
+        setFocus(true);
         setFilterProducts(
             products.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
         )
@@ -162,7 +170,7 @@ const ProductContainer = (props) => {
                 // Caso contrário chamar o métdo filtrar categorias
                 : [
                     setCategorizedProducts(
-                        products.filter((i) => i.category._id === cat),
+                        products.filter((i) => i.category && i.category._id === cat),
                         setActive(true)
 
                     )
@@ -179,14 +187,34 @@ const ProductContainer = (props) => {
                     <Header searchBar rounded style={styles.search}>
                         <Item>
                             <Icon name="search" />
-                            <Input
+                            <Input                                
                                 placeholder="procurar"
                                 onFocus={openList}
                                 onChangeText={(text) => searchProduct(text)}
-                            />
-                            {focus == true ? (
-                                <Icon onPress={onBlur} name="close" />
-                            ) : null}
+                                />
+                           
+                        { 
+                    
+
+                            focus == true ?(
+                                <Icon name="filter"
+                                    size={30} color="ffffff"
+                                    style={{paddingRight: 10}}
+                                    onPress={() => props.navigation.navigate("Filtros")}
+                                 />
+                            ) : null
+                        
+                        
+                        }
+
+
+                                {
+                                focus == true ? (
+                                    <Icon  onPress={onBlur} name="close" />
+                            
+                                ) : null}
+
+                        
                         </Item>
                     </Header>
 
@@ -233,7 +261,7 @@ const ProductContainer = (props) => {
                                 </View>
                         </ScrollView>
                     )}
-                </Container >
+                </Container>
             ) : (
                 // ìcone Carregamento | renderiza até conectar com o servidor BD
                 <Container style={[styles.center, { backgroundColor: "gold" }]}>
@@ -271,5 +299,5 @@ const styles = StyleSheet.create({
 
 })
 
-export default ProductContainer;
 
+export default ProductContainer;

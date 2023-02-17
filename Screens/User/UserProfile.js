@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState, useCallback } from "react";
-import { View, Text, StyleSheet, Button, ScrollView, SafeAreaView, Image, TouchableOpacity } from "react-native"; // componentes biblioteca react-native
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity } from "react-native"; // componentes biblioteca react-native
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from "@react-navigation/native";
 import OrderCard from "../../Shared/OrderCard";
@@ -12,6 +12,7 @@ import baseURL from "../../assets/common/baseURL"
 // Importar métodos do ContextAPI
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import { logoutUser } from "../../Context/actions/Auth.actions"
+import { ListItem } from "native-base";
 
 
 
@@ -20,6 +21,7 @@ const Profile = (props) => {
     const context = useContext(AuthGlobal)
     const [userProfile, setUserProfile] = useState()
     const [orders, setOrders] = useState() // inicio, mostrar pedidos no perfil usuário
+
 
 
     useFocusEffect(
@@ -65,7 +67,6 @@ const Profile = (props) => {
             }
 
         }, [context.stateUser.isAuthenticated])) // Isso é acionado sempre que o 'state' (estado) muda: true or false
-
     // UI
 
     // inicio das informações do usuario, necessario separar em duas telas a de informações e pedidos.
@@ -95,6 +96,7 @@ const Profile = (props) => {
                     </View>
 
                     <View>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ fontSize: 20 }}>Meus Pedidos</Text>
                         <View>
                             {/* Se existe pedido então, map (loop) pedido  para mostrar no perfil*/}
@@ -108,6 +110,7 @@ const Profile = (props) => {
                                     <Text> Você não possui pedidos</Text>
                                 </View>
                             )}
+                        </View>
                         </View>
                     </View>
                 </ScrollView>

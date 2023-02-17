@@ -1,11 +1,9 @@
-//import React from "react";
+import React from "react";
 import { StyleSheet, View, Dimensions, Image, Text, Button } from 'react-native' // importar 'features' do ReactNative
 import { connect } from "react-redux"; // importar todas as ações criadas na pasta redux
 import * as actions from '../../Redux/Actions/CartActions';// importar a conexão com redux
 import Toast from "react-native-toast-message"; // importar toast msg.
 import StyledButton from "../../Shared/Style/StyledButton"; // importar Botão Estilizado usando Styled Components
-import React, { useState } from 'react';
-
 
 
 
@@ -13,8 +11,6 @@ import React, { useState } from 'react';
 var { width } = Dimensions.get("screen");
 
 const ProductCard = (props) => {
-    // Flag to keep track of maximum number of items reached
-    const [maxItemsReached, setMaxItemsReached] = useState(false);
     // Passar todas as 'props' em variáveis
     const { name, price, image, qty } = props;
 
@@ -29,12 +25,12 @@ const ProductCard = (props) => {
             <View style={styles.card} />
 
             <Text style={styles.title}>
-                {name.length > 15 ? name.substring(0, 15 - 3)
+                {name.length > 17 ? name.substring(0, 17 - 3)
                     + '...' : name
                 }
             </Text>
 
-            <Text style={styles.price}>R${price}</Text>
+            <Text style={styles.price}>R$ {price},00</Text>
 
             {qty > 0 ? (
                 <View style={{ marginBottom: 80 }}>
@@ -49,44 +45,36 @@ const ProductCard = (props) => {
                                     type: "success",
                                     text1: `${name} foi adicionado ao seu carrinho`,
                                     text2: "Navegue para seu carrinho para completar o pedido"
-                                });
+                                })
                         }}
                     >
                         {/*  Texto p/ button*/}
                         <Text style={{ color: "white" }}>Adicionar</Text>
                     </StyledButton>
 
+                    {/* Botão Comparar |  TODO */}
                     <StyledButton
                         secondary
                         medium
+                        //chamar o método mapDispatchToProps no onPressEvent - Redux
                         onPress={() => {
-                            if (!maxItemsReached && props.addItemToCompare.length < 2) {
-                                props.addItemToCompare(props.id);
+                            props.addItemToCompare(props.id),
                                 Toast.show({
                                     topOffset: 60,
                                     type: "success",
                                     text1: `${name} foi adicionado à tela de comparação`,
                                     text2: "Navegue para a tela 'comparar' para analisar os detalhes do produto"
-                                });
-                            } else if (props.addItemToCompare.length === 2) {
-                                Toast.show({
-                                    topOffset: 60,
-                                    type: "error",
-                                    text1: `Você já adicionou 2 produtos para comparar`,
-                                    text2: "Só é possível comparar até 2 produtos"
-                                });
-                                setMaxItemsReached(true);
-                            }
+                                })
                         }}
                     >
+                        {/*  Texto p/ button*/}
                         <Text style={{ color: "white" }}>Comparar</Text>
-                    </StyledButton>
 
+                    </StyledButton>
                 </View>
 
-            ) : <Text style={{ marginTop: 20 }}>Indisponível em estoque</Text>
-            }
-        </View >
+            ) : <Text style={{ marginTop: 20 }}>Indisponível em estoque</Text>}
+        </View>
     )
 }
 
@@ -107,29 +95,31 @@ const mapDispatchToProps = (dispatch) => {
 // Variável styles (Container Estilizado)
 const styles = StyleSheet.create({
     container: {
+        overflow:'hidden',
         width: width / 2 - 20,
-        height: width / 1.4,
+        height: width / 1.3,
         padding: 10,
         borderRadius: 10,
-        marginTop: 55,
+        marginTop: 10,
         marginBottom: 5,
         marginLeft: 10,
         alignItems: 'center',
-        elevation: 8,
+        elevation: 4,
         backgroundColor: 'white'
     },
     image: {
-        width: width / 2 - 20 - 10,
-        height: width / 2 - 20 - 30,
-        backgroundColor: 'transparent',
+        resizeMode: 'cover',
+        width: '95%',
+        height: '45%',
         position: 'absolute',
-        top: -50
+        borderRadius:4,
+        top: 10
     },
     card: {
-        marginBottom: 2,
-        height: width / 2 - 20 - 90,
+        marginBottom: 5,
+        height: '45%',
         backgroundColor: 'transparent',
-        width: width / 2 - 20 - 10
+        width: '100%'
     },
     title: {
         fontWeight: 'bold',

@@ -1,5 +1,5 @@
+import { ListItem } from "native-base";
 import { View, Text, StyleSheet } from "react-native";
-
 
 const OrderCard = (props) => {
 
@@ -22,20 +22,6 @@ const OrderCard = (props) => {
       <View style={styles.container}>
         <Text>Numero do Pedido #{props.id}</Text>
       </View>
-      <View style={{ marginTop: 10 }}>
-        <Text>Itens:</Text>
-        {order.orderItems.map((item) => {
-          return (
-            <View key={item.id} style={styles.itemContainer}>
-              <Text>{item.image}</Text>
-              <Text>Nome do Produto: {item.name}</Text>
-              <Text>Descrição: {item.description}</Text>
-              <Text>Preço unitário: R$ {item.price}</Text>
-            </View>
-          );
-        })}
-        {/* break line */}
-        <View style={{ borderBottomColor: "black", borderBottomWidth: 1 }} />
         <Text>
           Endereço: {props.street} {props.number}
         </Text>
@@ -46,14 +32,12 @@ const OrderCard = (props) => {
           <Text>Valor Total: </Text>
           <Text style={styles.price}>R$ {props.total_price}</Text>
         </View>
-      </View>
-    </View>
+       </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     margin: 10,
     borderRadius: 10,
   },
@@ -69,6 +53,12 @@ const styles = StyleSheet.create({
     color: "red",
     fontWeight: "bold",
   },
+  listItem: {
+    alignItems: "center",
+    backgroundColor: "white",
+    justifyContent: "center",
+    
+},
 });
 
 export default OrderCard;

@@ -25,7 +25,11 @@ import Main from './Navigators/Main';
 import Header from './Shared/Header';
 import { View } from 'native-base';
 
+import { LogBox } from 'react-native';
 
+  LogBox.ignoreLogs(['Warning: ...']); //Hide warnings
+
+  LogBox.ignoreAllLogs();
 
 // Componente funcional (functional component) 
 export default function App() {

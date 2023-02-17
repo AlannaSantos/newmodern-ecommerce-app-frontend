@@ -14,9 +14,6 @@ import baseURL from "../../assets/common/baseURL"
 import AuthGlobal from "../../Context/store/AuthGlobal";
 
 
-
-
-
 // Esse método permite conectar react redux com o store para termos acesso ao 'State' da store
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/CartActions"
